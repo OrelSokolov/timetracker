@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Ruby.png</file>
+    </qresource>
+</RCC>
