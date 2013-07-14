@@ -6,7 +6,7 @@ HEADERS       = src/window.h
 SOURCES       = src/main.cpp \
                 src/window.cpp
 
-RESOURCES     = systray.qrc
+RESOURCES     = timetracker.qrc
 
 CONFIG += release
 
