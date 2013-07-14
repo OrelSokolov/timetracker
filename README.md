@@ -6,8 +6,8 @@ This is pretty timetracker for bananateam.
 Installation
 ============
 - Install qt creator in your system
-- clone this repo
-- go to cloned repo and run `qmake systemtray.pro`
+- clone this repo: `git clone https://github.com/OrelSokolov/timetracker.git`
+- go to cloned repo and run `qmake timetracker.pro`
 - run `make`
-- move binary file `systemtray` to desktop. Run it.
+- move binary file `build/timetracker` to desktop. Run it.
 - PROFIT!!!
