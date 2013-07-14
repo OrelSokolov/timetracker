@@ -6,6 +6,7 @@
 #include <QHBoxLayout>
 #include <QMessageBox>
 #include "window.h"
+#include "time.h"
 
 
 Window::Window()

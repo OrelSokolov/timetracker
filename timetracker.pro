@@ -1,7 +1,8 @@
 TEMPLATE = app
 QT           += core gui xml svg
 
-HEADERS       = src/window.h
+HEADERS       = src/window.h \
+    src/time.h
 
 SOURCES       = src/main.cpp \
                 src/window.cpp
