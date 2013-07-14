@@ -1,26 +1,23 @@
- HEADERS       = window.h \
-    window.h
- SOURCES       = main.cpp \
-                 window.cpp
- RESOURCES     = systray.qrc \
-    systray.qrc
- QT           += xml svg
+TEMPLATE = app
+QT           += core gui xml svg
 
- # install
- target.path = $$[QT_INSTALL_EXAMPLES]/desktop/systray
- sources.files = $$SOURCES $$HEADERS $$RESOURCES $$FORMS systray.pro resources images
- sources.path = $$[QT_INSTALL_EXAMPLES]/desktop/systray
- INSTALLS += target sources
+HEADERS       = src/window.h
 
- symbian: include($$QT_SOURCE_TREE/examples/symbianpkgrules.pri)
+SOURCES       = src/main.cpp \
+                src/window.cpp
 
- wince* {
-         CONFIG(debug, release|debug) {
-                 addPlugins.sources = $$QT_BUILD_TREE/plugins/imageformats/qsvgd4.dll
-         }
-         CONFIG(release, release|debug) {
-                 addPlugins.sources = $$QT_BUILD_TREE/plugins/imageformats/qsvg4.dll
-         }
-         addPlugins.path = imageformats
-         DEPLOYMENT += addPlugins
- }
+RESOURCES     = systray.qrc
+
+CONFIG += release
+
+OTHER_FILES += \
+    README.md
+
+# Pretty release configuration
+
+  release:DESTDIR     = build/
+  release:OBJECTS_DIR = $$DESTDIR/.obj
+  release:MOC_DIR     = $$DESTDIR/.moc
+  release:RCC_DIR     = $$DESTDIR/.rcc
+  release:UI_DIR      = $$DESTDIR/.ui
+
