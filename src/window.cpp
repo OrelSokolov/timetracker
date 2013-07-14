@@ -20,7 +20,7 @@ Window::Window()
     configureButtons();
     configureLayout();
 
-    setWindowTitle(tr("Time tracker 0.1"));
+    setWindowTitle(tr("Time tracker 0.3"));
 }
 
 void Window::setVisible(bool visible)
@@ -43,7 +43,8 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason)
     switch (reason) {
     case QSystemTrayIcon::Trigger:
     case QSystemTrayIcon::DoubleClick:
-        pauseTrackingAction->trigger();
+        if(!this->isVisible() && pauseTrackingAction->isEnabled())
+            pauseTrackingAction->trigger();
         restoreAction->trigger();
         QApplication::setActiveWindow(this);
         break;
