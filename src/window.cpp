@@ -63,19 +63,23 @@ void Window::configureLayout() {
 void Window::configureActions()
 {
     showAboutAction = new QAction(tr("&About"), this);
+    showAboutAction->setIcon(QIcon(":/images/About.png"));
     connect(showAboutAction, SIGNAL(triggered()), this, SLOT(showAbout()));
 
     restoreAction = new QAction(tr("&Restore"), this);
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
     quitAction = new QAction(tr("&Quit"), this);
+    quitAction->setIcon(QIcon(":/images/Close.png"));
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
 
     startTrackingAction = new QAction(tr("Start tracking"), this);
+    startTrackingAction->setIcon(QIcon(":/images/Play.png"));
     connect(startTrackingAction, SIGNAL(triggered()), this, SLOT(startTracking()));
 
     pauseTrackingAction = new QAction(tr("Pause tracking"), this);
+    pauseTrackingAction->setIcon(QIcon(":/images/Pause.png"));
     connect(pauseTrackingAction, SIGNAL(triggered()), this, SLOT(pauseTracking()));
     pauseTrackingAction->setEnabled(false);
 
@@ -93,7 +97,7 @@ void Window::showAbout(){
                 "Find more on "
                 "<a href='https://github.com/OrelSokolov/timetracker'>GitHub</a>"
                 "<i><p align='right'>Orel Sokolov, 2013</p></i>"));
-    about.setIconPixmap(QPixmap(":/images/Ruby.png"));
+    about.setIconPixmap(QPixmap(":/images/Tracker.png"));
     about.exec();
 }
 
@@ -127,7 +131,7 @@ void Window::configureTrayIcon(){
     trayIcon = new QSystemTrayIcon(this);
     trayIcon->setContextMenu(trayIconMenu);
 
-    QIcon icon(":/images/Ruby.png");
+    QIcon icon(":/images/Tracker.png");
     trayIcon->setIcon(icon);
     setWindowIcon(icon);
     trayIcon->setToolTip("Time tracker");

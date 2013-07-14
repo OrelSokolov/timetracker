@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/Ruby.png</file>
+        <file>images/Close.png</file>
+        <file>images/Pause.png</file>
+        <file>images/Play.png</file>
+        <file>images/Tracker.png</file>
+        <file>images/About.png</file>
     </qresource>
 </RCC>
