@@ -28,7 +28,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568542"
-     inkscape:cx="9.8279385"
+     inkscape:cx="-12.092372"
      inkscape:cy="23.333479"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,12 +56,9 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <path
-       style="fill:#dc0500;fill-opacity:1;fill-rule:nonzero;stroke:#550000;stroke-width:0.57499999;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 7.8082168,51.165123 6.3845092,6.496928 0.115457,-25.690435 0.04269,-25.6906633 -6.4243795,6.4575083 -0.05915,19.213335 -0.05913,19.213327 z M 17.539605,57.963469 56.191786,32.100527 17.699434,6.0365313 17.619576,31.981802 17.539605,57.963469 z"
+       style="fill:#dc0500;fill-opacity:1;fill-rule:nonzero;stroke:#550000;stroke-width:0.65703464;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 7.4303785,5.5419366 7.3502815,31.968162 7.2301367,58.458063 56.769863,32.095516 7.4303785,5.5419366 z"
        id="rect2992"
-       inkscape:connector-curvature="0"
-       inkscape:export-filename="/home/orelsokolov/git/Qt/timetracker/images/Play.png"
-       inkscape:export-xdpi="67.5"
-       inkscape:export-ydpi="67.5" />
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

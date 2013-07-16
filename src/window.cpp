@@ -16,16 +16,21 @@ Window::Window()
     time = new Time;
     pauseTrackingAction=NULL;
 
+    pauseIcon = QIcon(":/images/Pause.png");
+    playIcon  = QIcon(":/images/Play.png");
+    aboutIcon = QIcon(":/images/About.png");
+    logoIcon  = QIcon(":/images/Tracker.png");
+
     configureTrayIcon();
     configureButtons();
     configureLayout();
 
-    setWindowTitle(tr("Time tracker 0.3"));
+    setWindowTitle(tr("Time tracker 0.3.1"));
 }
 
 void Window::setVisible(bool visible)
 {
-    restoreAction->setEnabled(isMaximized() || !visible);
+    showResultAction->setEnabled(isMaximized() || !visible);
     QDialog::setVisible(visible);
 }
 
@@ -42,15 +47,24 @@ void Window::iconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
     case QSystemTrayIcon::Trigger:
-    case QSystemTrayIcon::DoubleClick:
-        if(!this->isVisible() && pauseTrackingAction->isEnabled())
+        if(pauseTrackingAction->isEnabled()) {
             pauseTrackingAction->trigger();
-        restoreAction->trigger();
-        QApplication::setActiveWindow(this);
+        }
+        else{
+            startTrackingAction->trigger();
+        }
         break;
     default:
         ;
     }
+}
+
+void Window::showResult(){
+        if(!this->isVisible() && pauseTrackingAction->isEnabled())
+            pauseTrackingAction->trigger();
+        QApplication::setActiveWindow(this);
+        startButton->setFocus();
+        showNormal();
 }
 
 void Window::configureLayout() {
@@ -65,11 +79,12 @@ void Window::configureLayout() {
 void Window::configureActions()
 {
     showAboutAction = new QAction(tr("&About"), this);
-    showAboutAction->setIcon(QIcon(":/images/About.png"));
+    showAboutAction->setIcon(aboutIcon);
     connect(showAboutAction, SIGNAL(triggered()), this, SLOT(showAbout()));
 
-    restoreAction = new QAction(tr("&Restore"), this);
-    connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+    showResultAction = new QAction(tr("&Show result"), this);
+    showResultAction->setIcon(logoIcon);
+    connect(showResultAction, SIGNAL(triggered()), this, SLOT(showResult()));
 
     quitAction = new QAction(tr("&Quit"), this);
     quitAction->setIcon(QIcon(":/images/Close.png"));
@@ -77,11 +92,11 @@ void Window::configureActions()
 
 
     startTrackingAction = new QAction(tr("Start tracking"), this);
-    startTrackingAction->setIcon(QIcon(":/images/Play.png"));
+    startTrackingAction->setIcon(playIcon);
     connect(startTrackingAction, SIGNAL(triggered()), this, SLOT(startTracking()));
 
     pauseTrackingAction = new QAction(tr("Pause tracking"), this);
-    pauseTrackingAction->setIcon(QIcon(":/images/Pause.png"));
+    pauseTrackingAction->setIcon(pauseIcon);
     connect(pauseTrackingAction, SIGNAL(triggered()), this, SLOT(pauseTracking()));
     pauseTrackingAction->setEnabled(false);
 
@@ -107,8 +122,7 @@ void Window::configureTrayIconMenu()
 {
     configureActions();
     trayIconMenu = new QMenu(this);
-    trayIconMenu->addAction(startTrackingAction);
-    trayIconMenu->addAction(pauseTrackingAction);
+    trayIconMenu->addAction(showResultAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(showAboutAction);
     trayIconMenu->addSeparator();
@@ -118,6 +132,7 @@ void Window::configureTrayIconMenu()
 void Window::configureButtons(){
     timeLabel = new QLabel("<h1>Are you ready?</h1>");
     resetTimeButton = new QPushButton(tr("&Reset"));
+    resetTimeButton->setVisible(false);
     startButton = new QPushButton(tr("&Start"));
     pauseButton = new QPushButton(tr("&Pause"));
     pauseButton->setVisible(false);
@@ -136,7 +151,7 @@ void Window::configureTrayIcon(){
     QIcon icon(":/images/Tracker.png");
     trayIcon->setIcon(icon);
     setWindowIcon(icon);
-    trayIcon->setToolTip("Time tracker");
+    trayIcon->setToolTip("Press to start tracking");
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
     trayIcon->setVisible(true);
@@ -150,9 +165,11 @@ void Window::startTracking() {
     pauseTrackingAction->setEnabled(true);
     startTrackingAction->setEnabled(false);
     resetTrackedTimeAction->setEnabled(false);
-    //startButton->setVisible(false);
     startButton->setText(tr("&Continue"));
     startTrackingAction->setText("Continue tracking");
+    trayIcon->setIcon(pauseIcon);
+    resetTimeButton->setVisible(true);
+    trayIcon->setToolTip("Press to pause tracking");
 }
 
 void Window::pauseTracking() {
@@ -161,15 +178,24 @@ void Window::pauseTracking() {
     resetTrackedTimeAction->setEnabled(true);
     time->addMiliseconds(timer->elapsed());
     timeLabel->setText(time->toH1());
-    this->setVisible(true);
-
+    trayIcon->setIcon(playIcon);
+    trayIcon->setToolTip("Press to continue tracking");
 }
 
 void Window::resetTrackingResult() {
-    std::cout<<"reset tracking"<<std::endl;
-    time->reset();
-    timeLabel->setText(time->toH1());
-    startButton->setText(tr("&Start"));
-    startTrackingAction->setText("Start tracking");
+
+    if (QMessageBox::Yes ==
+            QMessageBox::question(this,
+                "Really?", "Are you really want to reset result?",
+                QMessageBox::Yes|QMessageBox::No))
+    {
+        std::cout<<"reset tracking"<<std::endl;
+        time->reset();
+        timeLabel->setText(time->toH1());
+        startButton->setText(tr("&Start"));
+        startTrackingAction->setText("Start tracking");
+        trayIcon->setIcon(playIcon);
+        trayIcon->setToolTip("Press to start tracking");
+    }
 }
 

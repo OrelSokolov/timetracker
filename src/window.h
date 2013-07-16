@@ -32,6 +32,7 @@ protected:
 private slots:
     void iconActivated(QSystemTrayIcon::ActivationReason reason);
     void showAbout();
+    void showResult();
 
     void startTracking();
     void pauseTracking();
@@ -50,7 +51,7 @@ private:
     QPushButton *pauseButton;
 
     QAction *showAboutAction;
-    QAction *restoreAction;
+    QAction *showResultAction;
     QAction *quitAction;
 
     QAction *startTrackingAction;
@@ -62,6 +63,11 @@ private:
 
     QTime *timer;
     Time *time;
+
+    QIcon pauseIcon;
+    QIcon playIcon;
+    QIcon aboutIcon;
+    QIcon logoIcon;
 };
 
 #endif
